@@ -137,10 +137,18 @@ export default function App() {
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3 text-red-700 animate-in fade-in slide-in-from-top-4">
             <AlertTriangle className="shrink-0 mt-0.5" size={18} />
-            <div className="text-sm">
+            <div className="text-sm flex-1">
               <p className="font-semibold text-red-800">Внимание</p>
               <p className="opacity-90">{error}</p>
             </div>
+            {!location && (
+              <button
+                onClick={fetchLocation}
+                className="shrink-0 px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-800 text-xs font-medium rounded-lg transition-colors"
+              >
+                Повторить
+              </button>
+            )}
           </div>
         )}
 

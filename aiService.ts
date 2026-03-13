@@ -18,7 +18,7 @@ export async function getOutfitRecommendation(
     dangerouslyAllowBrowser: true,
   });
 
-  const modelName = "gemini-2.5-flash";
+  const modelName = "gemini-3-pro";
 
   const systemPrompt = `
 You are a professional fashion stylist and weather expert.
