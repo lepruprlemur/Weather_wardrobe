@@ -1,0 +1,8 @@
+{
+  "name": "WeatherWear AI test API",
+  "description": "A smart fashion assistant that recommends the best outfit from your wardrobe based on real-time local weather data and image analysis.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}

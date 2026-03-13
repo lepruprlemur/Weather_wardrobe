@@ -1,0 +1,16 @@
+
+{
+  "short_name": "WeatherWear",
+  "name": "WeatherWear AI Stylist",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1163/1163763.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#f8fafc"
+}
