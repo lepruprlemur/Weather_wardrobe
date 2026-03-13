@@ -48,22 +48,58 @@ export default function App() {
     fetchLocation();
   }, [fetchLocation]);
 
-  const processFiles = (files: FileList | null) => {
-    if (!files) return;
-
-    Array.from(files).forEach(file => {
+  const compressImage = (file: File, maxSize: number = 800, quality: number = 0.7): Promise<{ base64: string; mimeType: string }> => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64String = reader.result as string;
-        const newItem: ClothingItem = {
-          id: Math.random().toString(36).substr(2, 9),
-          base64: base64String,
-          mimeType: file.type
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let { width, height } = img;
+
+          if (width > maxSize || height > maxSize) {
+            if (width > height) {
+              height = Math.round((height * maxSize) / width);
+              width = maxSize;
+            } else {
+              width = Math.round((width * maxSize) / height);
+              height = maxSize;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) { reject(new Error('Canvas context failed')); return; }
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const base64 = canvas.toDataURL('image/jpeg', quality);
+          resolve({ base64, mimeType: 'image/jpeg' });
         };
-        setClothes(prev => [...prev, newItem]);
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = reader.result as string;
       };
+      reader.onerror = () => reject(new Error('Failed to read file'));
       reader.readAsDataURL(file);
     });
+  };
+
+  const processFiles = async (files: FileList | null) => {
+    if (!files) return;
+
+    for (const file of Array.from(files)) {
+      try {
+        const { base64, mimeType } = await compressImage(file);
+        const newItem: ClothingItem = {
+          id: Math.random().toString(36).substr(2, 9),
+          base64,
+          mimeType
+        };
+        setClothes(prev => [...prev, newItem]);
+      } catch (err) {
+        console.error('Failed to process image:', err);
+      }
+    }
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
