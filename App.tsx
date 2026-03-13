@@ -33,13 +33,14 @@ export default function App() {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
+        setError(null);
         setStatus(AppStatus.IDLE);
       },
       (err) => {
         setError(`Доступ к геопозиции отклонен: ${err.message}. Пожалуйста, разрешите доступ к местоположению.`);
         setStatus(AppStatus.ERROR);
       },
-      { timeout: 10000 }
+      { timeout: 15000 }
     );
   }, []);
 
