@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ClothingItem, LocationData, RecommendationResponse, AppStatus } from './types';
 import { getOutfitRecommendation } from './aiService';
 // Added missing Sparkles icon to the lucide-react import list
-import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Cpu, Sparkles } from 'lucide-react';
+import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Sparkles } from 'lucide-react';
 
 export default function App() {
   const [status, setStatus] = useState<AppStatus>(AppStatus.IDLE);
@@ -117,10 +117,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-sm font-bold tracking-tight">WeatherWear</h1>
-              <div className="flex items-center gap-1">
-                <Cpu size={10} className="text-indigo-500" />
-                <span className="text-[8px] font-bold text-slate-500 uppercase">GRS AI</span>
-              </div>
+
             </div>
           </div>
           <div className="flex items-center gap-2">
