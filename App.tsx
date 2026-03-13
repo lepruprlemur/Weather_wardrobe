@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ClothingItem, LocationData, RecommendationResponse, AppStatus, GroundingSource } from './types';
-import { getOutfitRecommendation } from './geminiService';
+import { ClothingItem, LocationData, RecommendationResponse, AppStatus } from './types';
+import { getOutfitRecommendation } from './aiService';
 // Added missing Sparkles icon to the lucide-react import list
-import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Cpu, ExternalLink, Search, Sparkles } from 'lucide-react';
+import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Cpu, Sparkles } from 'lucide-react';
 
 export default function App() {
   const [status, setStatus] = useState<AppStatus>(AppStatus.IDLE);
@@ -118,7 +118,7 @@ export default function App() {
               <h1 className="text-sm font-bold tracking-tight">WeatherWear</h1>
               <div className="flex items-center gap-1">
                 <Cpu size={10} className="text-indigo-500" />
-                <span className="text-[8px] font-bold text-slate-500 uppercase">Gemini 3 Pro + Search</span>
+                <span className="text-[8px] font-bold text-slate-500 uppercase">GRS AI</span>
               </div>
             </div>
           </div>
@@ -217,8 +217,8 @@ export default function App() {
               <div className={`p-6 text-white space-y-4 transition-colors ${recommendation.isKidModeActive ? 'bg-pink-600' : 'bg-indigo-950'}`}>
                 <div className="flex items-center justify-between">
                    <div className="flex items-center gap-2">
-                    <Search size={14} className="opacity-70" />
-                    <p className="text-[10px] uppercase font-bold tracking-widest opacity-80">Google Search Grounding</p>
+                    <Sparkles size={14} className="opacity-70" />
+                    <p className="text-[10px] uppercase font-bold tracking-widest opacity-80">GRS AI Recommendation</p>
                    </div>
                    <button onClick={resetAll} className="p-2 hover:bg-white/10 rounded-full"><RefreshCcw size={16} /></button>
                 </div>
@@ -260,19 +260,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {recommendation.sources && (
-                    <div className="pt-6 mt-6 border-t border-slate-100">
-                      <p className="text-[10px] font-bold uppercase text-slate-400 mb-3 tracking-widest">Источники данных о погоде</p>
-                      <div className="flex flex-wrap gap-2">
-                        {recommendation.sources.map((source, idx) => (
-                          <a key={idx} href={source.uri} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-full text-[11px] font-medium text-slate-600 transition-colors">
-                            <ExternalLink size={10} />
-                            {source.title.length > 25 ? source.title.substring(0, 25) + '...' : source.title}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
