@@ -30,3 +30,5 @@ dist-ssr
 ios/App/Pods
 ios/App/App/public
 ios/App/capacitor-cordova-ios-plugins
+android/app/src/main/assets/public
+android/capacitor-cordova-android-plugins

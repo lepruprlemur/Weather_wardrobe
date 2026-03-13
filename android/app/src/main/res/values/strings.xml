@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">WeatherWear</string>
+    <string name="title_activity_main">WeatherWear</string>
+    <string name="package_name">com.weatherwear.app</string>
+    <string name="custom_url_scheme">com.weatherwear.app</string>
+</resources>

@@ -40,3 +40,25 @@ A smart fashion assistant that recommends the best outfit from your wardrobe bas
    npx cap open ios
    ```
 5. Build and run from Xcode on a simulator or device.
+
+## Android Build (Capacitor)
+
+**Prerequisites:** Node.js, Android Studio
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+2. Build the web app:
+   ```
+   npm run build
+   ```
+3. Sync web assets to the Android project:
+   ```
+   npx cap sync
+   ```
+4. Open in Android Studio:
+   ```
+   npx cap open android
+   ```
+5. Build and run from Android Studio on an emulator or device.
