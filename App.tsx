@@ -224,7 +224,7 @@ export default function App() {
                 <div className="flex items-center justify-between">
                    <div className="flex items-center gap-2">
                     <Sparkles size={14} className="opacity-70" />
-                    <p className="text-[10px] uppercase font-bold tracking-widest opacity-80">GRS AI Recommendation</p>
+                    <p className="text-[10px] uppercase font-bold tracking-widest opacity-80">Our Recommendation</p>
                    </div>
                    <button onClick={resetAll} className="p-2 hover:bg-white/10 rounded-full"><RefreshCcw size={16} /></button>
                 </div>
