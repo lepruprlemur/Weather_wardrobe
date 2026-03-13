@@ -25,3 +25,8 @@ dist-ssr
 
 # Environment variables
 .env
+
+# Capacitor
+ios/App/Pods
+ios/App/App/public
+ios/App/capacitor-cordova-ios-plugins

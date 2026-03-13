@@ -18,3 +18,25 @@ A smart fashion assistant that recommends the best outfit from your wardrobe bas
    ```
 3. Run the app:
    `npm run dev`
+
+## iOS Build (Capacitor)
+
+**Prerequisites:** Node.js, Xcode, CocoaPods
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+2. Build the web app:
+   ```
+   npm run build
+   ```
+3. Sync web assets to the iOS project:
+   ```
+   npx cap sync
+   ```
+4. Open in Xcode:
+   ```
+   npx cap open ios
+   ```
+5. Build and run from Xcode on a simulator or device.

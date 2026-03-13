@@ -10,9 +10,14 @@
     "start": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.3",
+    "@capacitor/camera": "^8.0.2",
+    "@capacitor/cli": "^7.6.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/geolocation": "^8.1.0",
+    "@capacitor/ios": "^8.2.0",
     "lucide-react": "^0.562.0",
     "openai": "^4.78.0",
+    "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
