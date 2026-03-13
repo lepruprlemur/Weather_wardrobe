@@ -22,7 +22,7 @@ export default function App() {
     setStatus(AppStatus.GETTING_LOCATION);
     setError(null);
     if (!navigator.geolocation) {
-      setError("Геолокация не поддерживается вашим браузером.");
+      setError("Geolocation is not supported by your browser.");
       setStatus(AppStatus.ERROR);
       return;
     }
@@ -37,7 +37,7 @@ export default function App() {
         setStatus(AppStatus.IDLE);
       },
       (err) => {
-        setError(`Доступ к геопозиции отклонен: ${err.message}. Пожалуйста, разрешите доступ к местоположению.`);
+        setError(`Geolocation access denied: ${err.message}. Please allow location access.`);
         setStatus(AppStatus.ERROR);
       },
       { timeout: 15000 }
@@ -78,11 +78,11 @@ export default function App() {
 
   const generateRecommendation = async () => {
     if (!location) {
-      setError("Нужна геолокация для проверки погоды.");
+      setError("Location is needed to check the weather.");
       return;
     }
     if (clothes.length === 0) {
-      setError("Загрузите хотя бы одну вещь из вашего гардероба.");
+      setError("Please add at least one item from your wardrobe.");
       return;
     }
 
@@ -93,7 +93,7 @@ export default function App() {
       setRecommendation(result);
       setActiveOptionIndex(0);
     } catch (err: any) {
-      setError(err.message || "Не удалось проанализировать данные.");
+      setError(err.message || "Failed to analyze data. Please try again.");
     } finally {
       setStatus(AppStatus.IDLE);
     }
@@ -136,7 +136,7 @@ export default function App() {
           <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-start gap-3 text-red-700 animate-in fade-in slide-in-from-top-4">
             <AlertTriangle className="shrink-0 mt-0.5" size={18} />
             <div className="text-sm flex-1">
-              <p className="font-semibold text-red-800">Внимание</p>
+              <p className="font-semibold text-red-800">Warning</p>
               <p className="opacity-90">{error}</p>
             </div>
             {!location && (
@@ -144,7 +144,7 @@ export default function App() {
                 onClick={fetchLocation}
                 className="shrink-0 px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-800 text-xs font-medium rounded-lg transition-colors"
               >
-                Повторить
+                Retry
               </button>
             )}
           </div>
@@ -153,7 +153,7 @@ export default function App() {
         {status === AppStatus.GETTING_LOCATION && (
           <div className="flex flex-col items-center justify-center py-20 space-y-4">
             <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
-            <p className="text-slate-400 text-sm font-medium">Определяем местоположение...</p>
+            <p className="text-slate-400 text-sm font-medium">Detecting location...</p>
           </div>
         )}
 
@@ -161,8 +161,8 @@ export default function App() {
           <section className="space-y-6 animate-in fade-in duration-500">
             <div className="flex items-end justify-between">
               <div>
-                <h2 className="text-xl font-bold text-slate-800">Гардероб</h2>
-                <p className="text-sm text-slate-400">Сфотографируйте свои вещи</p>
+                <h2 className="text-xl font-bold text-slate-800">Wardrobe</h2>
+                <p className="text-sm text-slate-400">Take photos of your clothes</p>
               </div>
               <div className="flex gap-2">
                 <button onClick={() => cameraInputRef.current?.click()} className="bg-slate-900 text-white p-3 rounded-xl shadow-lg transition-transform active:scale-95">
@@ -182,8 +182,8 @@ export default function App() {
                    <Baby size={20} />
                  </div>
                  <div>
-                   <p className="text-sm font-bold">Детский режим</p>
-                   <p className="text-[11px] text-slate-400">Приоритет на многослойность</p>
+                   <p className="text-sm font-bold">Kid Mode</p>
+                   <p className="text-[11px] text-slate-400">Prioritize layering</p>
                  </div>
                </div>
                <button onClick={() => setIsKidMode(!isKidMode)} className={`w-12 h-6 rounded-full relative transition-colors duration-200 ${isKidMode ? 'bg-pink-500' : 'bg-slate-300'}`}>
@@ -196,13 +196,13 @@ export default function App() {
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-300">
                   <Camera size={32} />
                 </div>
-                <p className="text-sm text-slate-400 max-w-[200px]">Добавьте вещи, чтобы ИИ мог составить образ</p>
+                <p className="text-sm text-slate-400 max-w-[200px]">Add items so AI can create an outfit</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                 {clothes.map((item) => (
                   <div key={item.id} onClick={() => setPreviewImage(item.base64)} className="group relative aspect-[3/4] bg-white rounded-2xl overflow-hidden border shadow-sm cursor-pointer transition-transform active:scale-95">
-                    <img src={item.base64} alt="Вещь" className="w-full h-full object-cover" />
+                    <img src={item.base64} alt="Item" className="w-full h-full object-cover" />
                     <button onClick={(e) => removeItem(item.id, e)} className="absolute top-2 right-2 p-1.5 bg-black/50 backdrop-blur-md text-white rounded-lg">
                       <Trash2 size={14} />
                     </button>
@@ -210,7 +210,7 @@ export default function App() {
                 ))}
                 <button onClick={() => cameraInputRef.current?.click()} className="aspect-[3/4] border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-400 bg-slate-50">
                   <Plus size={24} />
-                  <span className="text-[10px] font-bold uppercase">Добавить</span>
+                  <span className="text-[10px] font-bold uppercase">Add</span>
                 </button>
               </div>
             )}
@@ -232,7 +232,7 @@ export default function App() {
                 <div className="flex bg-white/10 p-1 rounded-xl">
                    {recommendation.options.map((_, idx) => (
                      <button key={idx} onClick={() => setActiveOptionIndex(idx)} className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${activeOptionIndex === idx ? 'bg-white text-slate-900 shadow-sm' : 'text-white'}`}>
-                       Вариант {idx + 1}
+                       Option {idx + 1}
                      </button>
                    ))}
                 </div>
@@ -261,7 +261,7 @@ export default function App() {
                     <p className="text-slate-600 text-sm leading-relaxed">{activeOption.reasoning}</p>
                     <div className="grid gap-2">
                       {activeOption.styleTips.map((tip, idx) => (
-                        <div key={idx} className="p-3 rounded-xl text-xs italic bg-indigo-50/50 text-indigo-700 border border-indigo-100">“{tip}”</div>
+                        <div key={idx} className="p-3 rounded-xl text-xs italic bg-indigo-50/50 text-indigo-700 border border-indigo-100">"{tip}"</div>
                       ))}
                     </div>
                   </div>
@@ -279,12 +279,12 @@ export default function App() {
             {status === AppStatus.ANALYZING ? (
               <>
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                <span>ИИ изучает погоду и гардероб...</span>
+                <span>AI is analyzing weather & wardrobe...</span>
               </>
             ) : (
               <>
                 <Sparkles size={20} />
-                <span>Подобрать образ</span>
+                <span>Get Outfit</span>
               </>
             )}
           </button>
