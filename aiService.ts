@@ -71,11 +71,17 @@ JSON Schema:
         { role: "system", content: systemPrompt },
         { role: "user", content: userContent },
       ],
-      response_format: { type: "json_object" },
+      // response_format not supported for all models via GRS AI
     });
 
-    const text = response.choices[0]?.message?.content;
-    if (!text) throw new Error("The model returned an empty response.");
+    const rawText = response.choices[0]?.message?.content;
+    if (!rawText) throw new Error("The model returned an empty response.");
+
+    // Strip markdown code fences if present (e.g. ```json ... ```)
+    let text = rawText.trim();
+    if (text.startsWith("```")) {
+      text = text.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "");
+    }
 
     const parsedResponse = JSON.parse(text) as RecommendationResponse;
 
