@@ -77,11 +77,24 @@ JSON Schema:
     const rawText = response.choices[0]?.message?.content;
     if (!rawText) throw new Error("The model returned an empty response.");
 
-    // Strip markdown code fences if present (e.g. ```json ... ```)
+    // Clean up the response: strip markdown fences and extract valid JSON
     let text = rawText.trim();
+    // Remove markdown code fences if present
     if (text.startsWith("```")) {
       text = text.replace(/^```(?:json)?\s*\n?/, "").replace(/\n?```\s*$/, "");
     }
+    // Extract the JSON object between first { and its matching }
+    const startIdx = text.indexOf("{");
+    if (startIdx === -1) throw new Error("No JSON object found in response.");
+    let depth = 0;
+    let endIdx = -1;
+    for (let i = startIdx; i < text.length; i++) {
+      if (text[i] === "{") depth++;
+      else if (text[i] === "}") depth--;
+      if (depth === 0) { endIdx = i; break; }
+    }
+    if (endIdx === -1) throw new Error("Incomplete JSON object in response.");
+    text = text.substring(startIdx, endIdx + 1);
 
     const parsedResponse = JSON.parse(text) as RecommendationResponse;
 
