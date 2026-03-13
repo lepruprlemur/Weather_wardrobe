@@ -46,8 +46,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Приложению необходим доступ к камере для фотографирования вашей одежды</string>
+	<string>Приложению необходим доступ к камере для фотографирования вашего гардероба</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Приложению необходим доступ к вашему местоположению для получения данных о погоде</string>
+	<string>Приложению необходим доступ к вашему местоположению для получения данных о погоде в вашем регионе</string>
 </dict>
 </plist>
