@@ -3,7 +3,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ClothingItem, LocationData, RecommendationResponse, AppStatus } from './types';
 import { getOutfitRecommendation } from './aiService';
 // Added missing Sparkles icon to the lucide-react import list
-import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Sparkles } from 'lucide-react';
+import { Camera, CloudSun, MapPin, Upload, Trash2, RefreshCcw, AlertTriangle, Plus, X, Layers, Baby, Sparkles, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 
 export default function App() {
   const [status, setStatus] = useState<AppStatus>(AppStatus.IDLE);
@@ -17,6 +18,7 @@ export default function App() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const fetchLocation = useCallback(() => {
     setStatus(AppStatus.GETTING_LOCATION);
@@ -255,14 +257,24 @@ export default function App() {
 
         {recommendation && activeOption && (
           <section className="space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-500">
-            <div className="bg-white border rounded-3xl overflow-hidden shadow-xl">
+            <div ref={resultRef} className="bg-white border rounded-3xl overflow-hidden shadow-xl">
               <div className={`p-6 text-white space-y-4 transition-colors ${recommendation.isKidModeActive ? 'bg-pink-600' : 'bg-indigo-950'}`}>
                 <div className="flex items-center justify-between">
                    <div className="flex items-center gap-2">
                     <Sparkles size={14} className="opacity-70" />
                     <p className="text-[10px] uppercase font-bold tracking-widest opacity-80">Our Recommendation</p>
                    </div>
-                   <button onClick={resetAll} className="p-2 hover:bg-white/10 rounded-full"><RefreshCcw size={16} /></button>
+                   <div className="flex items-center gap-1">
+                     <button onClick={async () => {
+                       if (!resultRef.current) return;
+                       const canvas = await html2canvas(resultRef.current, { useCORS: true, scale: 2, backgroundColor: '#f8fafc' });
+                       const link = document.createElement('a');
+                       link.download = `weatherwear-outfit-${Date.now()}.png`;
+                       link.href = canvas.toDataURL('image/png');
+                       link.click();
+                     }} className="p-2 hover:bg-white/10 rounded-full" title="Save as image"><Download size={16} /></button>
+                     <button onClick={resetAll} className="p-2 hover:bg-white/10 rounded-full"><RefreshCcw size={16} /></button>
+                   </div>
                 </div>
                 <h2 className="text-xl font-bold leading-tight">{recommendation.weatherSummary}</h2>
                 <div className="flex bg-white/10 p-1 rounded-xl">
